@@ -37,10 +37,18 @@ export default function Home() {
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary mb-3">
                 From Static PDF to Dynamic Insights
             </h1>
-            <p className="text-muted-foreground md:text-xl mb-8 max-w-2xl mx-auto">
-                LoanPulse AI transforms dense LMA loan agreements into an interactive dashboard for proactive risk monitoring and covenant tracking.
+            <p className="text-muted-foreground md:text-xl mb-8 max-w-3xl mx-auto">
+                LoanPulse AI elevates your credit portfolio management by transforming dense, static LMA loan agreements into a live, interactive dashboard. Proactively monitor financial covenants, track ESG KPIs, and get instant AI-driven risk summaries to stay ahead of potential breaches.
             </p>
             
+            <Button 
+                size="lg" 
+                className="z-20 relative mb-12"
+                onClick={() => setShowFileUpload(true)}
+            >
+                Get Started <ArrowRight className="ml-2" />
+            </Button>
+
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -52,13 +60,6 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent z-10" />
             </motion.div>
 
-            <Button 
-                size="lg" 
-                className="mt-8 z-20 relative"
-                onClick={() => setShowFileUpload(true)}
-            >
-                Get Started <ArrowRight className="ml-2" />
-            </Button>
         </div>
     </main>
   );

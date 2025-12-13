@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef } from "react";
@@ -18,7 +19,7 @@ import { ScanningAnimation } from "./scanning-animation";
 
 export function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -38,7 +39,7 @@ export function FileUpload() {
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (isUploading) return;
+    if (isProcessing) return;
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       handleFileChange(files[0]);
@@ -46,47 +47,55 @@ export function FileUpload() {
   };
 
   const handleClick = () => {
-    if (isUploading) return;
+    if (isProcessing) return;
     fileInputRef.current?.click();
   };
 
   const handleProcess = async () => {
     if (!file) return;
 
-    setIsUploading(true);
+    setIsProcessing(true);
     setError(null);
 
     try {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
-        const base64Data = reader.result as string;
-        
-        // This is where you would call your Genkit flow
-        const result = await processLoanAgreement({ fileDataUri: base64Data });
+        try {
+          const base64Data = reader.result as string;
+          const result = await processLoanAgreement({ fileDataUri: base64Data });
 
-        // For now, we just simulate success and navigate.
-        // In a real app, you might store the result in a state management library
-        // or pass it via router state if the data is not too large.
-        // The scanning animation component will handle the redirect.
+          sessionStorage.setItem('loanData', JSON.stringify(result));
+          
+          // The scanning animation component will handle the redirect.
+          // The isProcessing state change triggers its display.
+        } catch (err) {
+            console.error("Processing error:", err);
+            toast({
+                variant: "destructive",
+                title: "Processing Failed",
+                description: "Could not analyze the loan agreement file.",
+            });
+            setIsProcessing(false);
+        }
       };
       reader.onerror = () => {
         throw new Error("Failed to read file.");
       }
 
     } catch (err) {
-      console.error("Processing error:", err);
+      console.error("File reading error:", err);
       toast({
         variant: "destructive",
         title: "Upload Failed",
-        description: "Could not process the loan agreement file.",
+        description: "Could not read the selected file.",
       });
-      setIsUploading(false);
+      setIsProcessing(false);
     }
   };
 
 
-  if (isUploading) {
+  if (isProcessing) {
     return <ScanningAnimation fileName={file?.name || 'file'} />;
   }
 
@@ -130,10 +139,10 @@ export function FileUpload() {
              {error && <p className="text-destructive text-sm mt-2">{error}</p>}
           </div>
 
-          {file && !isUploading && (
+          {file && !isProcessing && (
             <div className="p-4 border-t">
-                 <Button onClick={handleProcess} className="w-full" disabled={isUploading || !!error}>
-                    {isUploading ? <Loader2 className="animate-spin" /> : 'Process Agreement'}
+                 <Button onClick={handleProcess} className="w-full" disabled={isProcessing || !!error}>
+                    {isProcessing ? <Loader2 className="animate-spin" /> : 'Process Agreement'}
                 </Button>
             </div>
            )}

@@ -42,7 +42,7 @@ export default function Home() {
             </div>
 
             <p className="text-muted-foreground md:text-xl mb-8 max-w-3xl mx-auto">
-                LoanPulse AI elevates your credit portfolio management by transforming dense, static loan agreements into a live, interactive dashboard. Proactively monitor financial covenants, track ESG KPIs, and get instant AI-driven risk summaries to stay ahead of potential breaches.
+                LoanPulse AI elevates your credit portfolio management by transforming dense, static LMA loan agreements into a live, interactive dashboard. Proactively monitor financial covenants, track ESG KPIs, and get instant AI-driven risk summaries to stay ahead of potential breaches.
             </p>
             
             <Button 

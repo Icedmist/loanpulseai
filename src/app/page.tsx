@@ -22,7 +22,7 @@ export default function Home() {
                 >
                     <h1 className="font-headline text-4xl font-bold text-center text-primary mb-2">LoanPulse AI</h1>
                     <p className="text-center text-muted-foreground mb-8">
-                        Upload your Loan Market Association (LMA) agreement to begin.
+                        Upload your loan agreement to begin.
                     </p>
                     <FileUpload />
                 </motion.div>
@@ -42,7 +42,7 @@ export default function Home() {
             </div>
 
             <p className="text-muted-foreground md:text-xl mb-8 max-w-3xl mx-auto">
-                LoanPulse AI elevates your credit portfolio management by transforming dense, static LMA loan agreements into a live, interactive dashboard. Proactively monitor financial covenants, track ESG KPIs, and get instant AI-driven risk summaries to stay ahead of potential breaches.
+                LoanPulse AI elevates your credit portfolio management by transforming dense, static loan agreements into a live, interactive dashboard. Proactively monitor financial covenants, track ESG KPIs, and get instant AI-driven risk summaries to stay ahead of potential breaches.
             </p>
             
             <Button 

@@ -10,7 +10,6 @@ import { EsgWidget } from "@/components/loanpulse/esg-widget";
 import { AlertFeed } from "@/components/loanpulse/alert-feed";
 import { CureCalculatorModal } from "@/components/loanpulse/cure-calculator-modal";
 import { FileQuestion, Loader2 } from "lucide-react";
-import loanDataFallback from "@/data/loan-data.json";
 import { Button } from "@/components/ui/button";
 
 export default function DashboardPage() {

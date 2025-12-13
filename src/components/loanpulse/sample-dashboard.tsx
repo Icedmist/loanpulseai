@@ -34,7 +34,7 @@ export function SampleDashboard() {
         </div>
       </main>
       <footer className="p-4 md:p-8 text-center text-muted-foreground text-sm">
-        LoanPulse AI &copy; 2024
+        LoanPulse AI &copy; 2025
       </footer>
     </div>
   );

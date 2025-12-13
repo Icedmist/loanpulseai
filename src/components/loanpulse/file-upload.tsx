@@ -62,41 +62,46 @@ export function FileUpload() {
     setIsProcessing(true);
     setError(null);
 
-    try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = async () => {
-        try {
-          const base64Data = reader.result as string;
-          const result = await processLoanAgreement({ fileDataUri: base64Data });
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        const base64Data = e.target?.result as string;
+        if (!base64Data) {
+            toast({
+                variant: "destructive",
+                title: "File Read Error",
+                description: "Could not read the file contents.",
+            });
+            setIsProcessing(false);
+            return;
+        }
 
-          sessionStorage.setItem('loanData', JSON.stringify(result));
-          
-          // The scanning animation component will handle the redirect.
-          // The isProcessing state change triggers its display.
+        try {
+            const result = await processLoanAgreement({ fileDataUri: base64Data });
+            sessionStorage.setItem('loanData', JSON.stringify(result));
+            // The isProcessing state change will trigger the scanning animation,
+            // which then handles the redirect.
         } catch (err) {
             console.error("Processing error:", err);
             toast({
                 variant: "destructive",
                 title: "Processing Failed",
-                description: "Could not analyze the loan agreement file.",
+                description: "Could not analyze the loan agreement file. The AI model may have had an issue with the document format or content.",
             });
             setIsProcessing(false);
         }
-      };
-      reader.onerror = () => {
-        throw new Error("Failed to read file.");
-      }
+    };
+    
+    reader.onerror = () => {
+        console.error("File reading error:", reader.error);
+        toast({
+            variant: "destructive",
+            title: "Upload Failed",
+            description: "Could not read the selected file.",
+        });
+        setIsProcessing(false);
+    };
 
-    } catch (err) {
-      console.error("File reading error:", err);
-      toast({
-        variant: "destructive",
-        title: "Upload Failed",
-        description: "Could not read the selected file.",
-      });
-      setIsProcessing(false);
-    }
+    reader.readAsDataURL(file);
   };
 
 

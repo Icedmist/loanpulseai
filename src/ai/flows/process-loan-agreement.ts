@@ -1,7 +1,7 @@
 'use server';
 
 /**
- * @fileOverview Processes a loan agreement PDF.
+ * @fileOverview Processes a loan agreement document.
  *
  * - processLoanAgreement - A function that handles the loan agreement processing.
  * - ProcessLoanAgreementInput - The input type for the processLoanAgreement function.
@@ -18,7 +18,7 @@ const ProcessLoanAgreementInputSchema = z.object({
   fileDataUri: z
     .string()
     .describe(
-      "A PDF file of a loan agreement, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+      "A loan agreement document (PDF, DOC, DOCX), as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
 });
 export type ProcessLoanAgreementInput = z.infer<typeof ProcessLoanAgreementInputSchema>;
@@ -40,7 +40,7 @@ const processLoanAgreementFlow = ai.defineFlow(
     outputSchema: ProcessLoanAgreementOutputSchema,
   },
   async input => {
-    // TODO: In a real implementation, you would use a tool to parse the PDF
+    // TODO: In a real implementation, you would use a tool to parse the document
     // and extract the data using a multimodal model.
     // For now, we return mock data.
     console.log("Processing file...");

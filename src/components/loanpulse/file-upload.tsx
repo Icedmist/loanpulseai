@@ -28,8 +28,13 @@ export function FileUpload() {
 
   const handleFileChange = (selectedFile: File | null) => {
     if (selectedFile) {
-      if (selectedFile.type !== "application/pdf") {
-        setError("Only PDF files are allowed.");
+        const allowedTypes = [
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ];
+      if (!allowedTypes.includes(selectedFile.type)) {
+        setError("Only PDF, DOC, and DOCX files are allowed.");
         return;
       }
       setError(null);
@@ -113,13 +118,13 @@ export function FileUpload() {
               ref={fileInputRef}
               onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
               className="hidden"
-              accept="application/pdf"
+              accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             />
             {!file ? (
                 <div className="text-center">
                     <UploadCloud className="h-12 w-12 text-muted-foreground mb-2 mx-auto" />
-                    <p className="font-semibold">Drop PDF Loan Agreement here</p>
-                    <p className="text-sm text-muted-foreground">or click to upload</p>
+                    <p className="font-semibold">Drop Loan Agreement here</p>
+                    <p className="text-sm text-muted-foreground">PDF, DOC, or DOCX</p>
                 </div>
             ) : (
                 <div className="flex flex-col items-center text-center">

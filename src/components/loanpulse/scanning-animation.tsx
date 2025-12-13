@@ -14,18 +14,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 const steps = [
-  {
-    text: "Uploading 'Facility_Agreement_v4.pdf'...",
-    icon: <Loader2 className="h-6 w-6 animate-spin text-primary" />,
-    duration: 2000,
-  },
-  {
-    text: "Identified Clause 21 (Financial Covenants)...",
+   {
+    text: "Analyzing Document Structure...",
     icon: <FileScan className="h-6 w-6 text-primary" />,
     duration: 2000,
   },
   {
-    text: "Extracting Leverage definitions...",
+    text: "Extracting Financial Covenants...",
     icon: <DatabaseZap className="h-6 w-6 text-primary" />,
     duration: 2500,
   },
@@ -36,13 +31,21 @@ const steps = [
   },
 ];
 
-export function ScanningAnimation() {
-  const [isUploading, setIsUploading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
+type ScanningAnimationProps = {
+  fileName: string;
+};
+
+
+export function ScanningAnimation({fileName}: ScanningAnimationProps) {
+  const [currentStep, setCurrentStep] = useState(-1);
   const router = useRouter();
 
+   useEffect(() => {
+    setCurrentStep(0);
+  }, []);
+
   useEffect(() => {
-    if (!isUploading) return;
+    if (currentStep === -1) return;
 
     if (currentStep < steps.length - 1) {
       const timer = setTimeout(
@@ -57,70 +60,38 @@ export function ScanningAnimation() {
       );
       return () => clearTimeout(timer);
     }
-  }, [currentStep, router, isUploading]);
+  }, [currentStep, router]);
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    if (!isUploading) {
-      setIsUploading(true);
-    }
-  };
-
-  const handleClick = () => {
-    if (!isUploading) {
-      setIsUploading(true);
-    }
-  };
 
   return (
     <Card
-      className={cn(
-        "transition-all duration-300",
-        isUploading ? "bg-transparent shadow-none border-none" : ""
-      )}
+      className="transition-all duration-300 bg-transparent shadow-none border-none"
     >
       <CardContent className="p-0">
-        <AnimatePresence mode="wait">
-          {!isUploading ? (
-            <motion.div
-              key="dropzone"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={handleClick}
-              onDrop={handleDrop}
-              onDragOver={(e) => e.preventDefault()}
-              className="flex flex-col items-center justify-center h-48 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted transition-colors"
-            >
-              <UploadCloud className="h-12 w-12 text-muted-foreground mb-2" />
-              <p className="font-semibold">Drop PDF Loan Agreement here</p>
-              <p className="text-sm text-muted-foreground">or click to upload</p>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="progress"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col items-center justify-center h-48"
-            >
-              <AnimatePresence mode="wait">
+        <motion.div
+            key="progress"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col items-center justify-center h-48"
+        >
+            <AnimatePresence mode="wait">
+            {currentStep > -1 &&
                 <motion.div
-                  key={currentStep}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center space-x-4"
+                    key={currentStep}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center space-x-4"
                 >
-                  {steps[currentStep].icon}
-                  <span className="text-lg font-medium">
+                    {steps[currentStep].icon}
+                    <span className="text-lg font-medium">
                     {steps[currentStep].text}
-                  </span>
+                    </span>
                 </motion.div>
-              </AnimatePresence>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            }
+            </AnimatePresence>
+        </motion.div>
       </CardContent>
     </Card>
   );

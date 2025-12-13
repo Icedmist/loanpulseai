@@ -1,4 +1,4 @@
-import { ScanningAnimation } from "@/components/loanpulse/scanning-animation";
+import { FileUpload } from "@/components/loanpulse/file-upload";
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
         <p className="text-center text-muted-foreground mb-8">
           Turning static LMA loan PDFs into active, risk-monitoring dashboards.
         </p>
-        <ScanningAnimation />
+        <FileUpload />
       </div>
     </main>
   );

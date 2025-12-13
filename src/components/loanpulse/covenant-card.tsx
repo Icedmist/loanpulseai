@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { FinancialCovenant } from "@/lib/types";
@@ -120,7 +121,7 @@ export function CovenantCard({ covenant }: CovenantCardProps) {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="h-48">
-          <ChartContainer config={chartConfig}>
+          <ChartContainer config={chartConfig} className="pointer-events-none">
             <LineChart
               data={trend_data}
               margin={{ top: 5, right: 20, left: -10, bottom: 0 }}
@@ -142,6 +143,7 @@ export function CovenantCard({ covenant }: CovenantCardProps) {
               />
               <ChartTooltip
                 content={<ChartTooltipContent />}
+                wrapperStyle={{ pointerEvents: 'auto' }}
               />
               <ReferenceLine y={covenant.limit} stroke="hsl(var(--destructive))" strokeDasharray="3 3" strokeWidth={2}>
                  <Target className="h-4 w-4 text-destructive" />

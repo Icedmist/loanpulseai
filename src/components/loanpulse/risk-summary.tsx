@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -17,7 +18,8 @@ export function RiskSummary({ covenantTitle, riskAnalysis }: RiskSummaryProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSummarize = async () => {
+  const handleSummarize = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click events
     setIsLoading(true);
     setSummary(null);
     try {
@@ -55,7 +57,7 @@ export function RiskSummary({ covenantTitle, riskAnalysis }: RiskSummaryProps) {
       )}
 
       {!summary && (
-        <Button onClick={handleSummarize} disabled={isLoading} size="sm">
+        <Button onClick={handleSummarize} disabled={isLoading} size="sm" className="pointer-events-auto">
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

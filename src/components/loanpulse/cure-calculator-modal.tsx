@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Calculator } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export function CureCalculatorModal() {
   return (
@@ -22,7 +23,10 @@ export function CureCalculatorModal() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="font-headline">Cure Options Calculator</DialogTitle>
+          <DialogTitle className="font-headline flex items-center justify-between">
+            Cure Options Calculator
+            <Badge variant="outline">Simulated</Badge>
+          </DialogTitle>
           <DialogDescription>
             Simulated options to cure the covenant breach.
           </DialogDescription>

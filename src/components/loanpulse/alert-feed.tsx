@@ -5,6 +5,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BellRing, Check, AlertTriangle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const alerts = [
   {
@@ -31,9 +32,12 @@ export function AlertFeed() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-headline">
-          <BellRing className="text-primary" />
-          <span>Alert Feed</span>
+        <CardTitle className="flex items-center justify-between gap-2 font-headline">
+          <div className="flex items-center gap-2">
+            <BellRing className="text-primary" />
+            <span>Alert Feed</span>
+          </div>
+          <Badge variant="outline">Simulated</Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>

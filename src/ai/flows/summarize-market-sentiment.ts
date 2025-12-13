@@ -34,12 +34,14 @@ const prompt = ai.definePrompt({
   prompt: `You are a financial market analyst AI. Your task is to analyze the current market sentiment for the company: {{{companyName}}}.
 
   To do this, you will:
-  1.  Imagine you are searching for recent news headlines, financial reports, and social media discussions related to the company.
-  2.  Based on this simulated search, determine the overall market sentiment (Positive, Neutral, or Negative).
-  3.  Provide a concise summary (under 60 words) explaining the key drivers behind this sentiment.
-  4.  Provide a confidence score for your analysis.
+  1. First, determine if this company is likely to have a significant public presence (e.g., is it a large, well-known corporation?).
+  2. If the company is obscure, private, or unlikely to have public market data, you MUST return a "Neutral" sentiment with a confidence score of 0.5. Your summary should state that no significant public market data or news could be found for the company.
+  3. If the company IS likely to have a public presence, imagine you are searching for recent news headlines, financial reports, and social media discussions related to it.
+  4. Based on this simulated search, determine the overall market sentiment (Positive, Neutral, or Negative).
+  5. Provide a concise summary (under 60 words) explaining the key drivers behind this sentiment.
+  6. Provide a confidence score for your analysis.
 
-  Generate a plausible and realistic sentiment analysis based on the type of company. For example, a renewable energy company might have positive sentiment due to a new green project, or negative sentiment due to supply chain issues.`,
+  Generate a plausible and realistic sentiment analysis based on the type of company. For example, a renewable energy company might have positive sentiment due to a new green project, while a small, private manufacturing firm might have no public data.`,
 });
 
 const summarizeMarketSentimentFlow = ai.defineFlow(

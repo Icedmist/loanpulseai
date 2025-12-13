@@ -8,6 +8,7 @@ import { DashboardHeader } from "@/components/loanpulse/dashboard-header";
 import { CovenantCard } from "@/components/loanpulse/covenant-card";
 import { EsgWidget } from "@/components/loanpulse/esg-widget";
 import { AlertFeed } from "@/components/loanpulse/alert-feed";
+import { MarketChatter } from "@/components/loanpulse/market-chatter";
 import { CureCalculatorModal } from "@/components/loanpulse/cure-calculator-modal";
 import { FileQuestion, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,7 @@ export default function DashboardPage() {
             <div className="flex justify-end">
               <CureCalculatorModal />
             </div>
+            <MarketChatter companyName={data.meta.borrower_name} />
             <EsgWidget kpi={data.esg_kpi} />
             <AlertFeed />
           </div>

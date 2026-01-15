@@ -57,7 +57,7 @@ To get the project running locally, follow these steps:
 3.  **Set up Environment Variables:**
     Create a `.env` file in the root of the project and add your Gemini API key:
     ```
-    GEMINI_API_KEY=your_api_key_here
+    GEMINI_API_KEY=your_api_key_here or any orther API key from the availablle
     ```
 
 ### Running the Application

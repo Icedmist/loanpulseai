@@ -5,6 +5,7 @@
 LoanPulse AI elevates credit portfolio management by transforming dense, static LMA-style loan agreements into a live, interactive dashboard. It allows portfolio managers to proactively monitor financial covenants, track ESG KPIs, and get instant AI-driven risk summaries to stay ahead of potential breaches.
 
 ## Core Features
+
 - **Multi-Format Document Ingestion**: Upload loan agreements in PDF, DOC, or DOCX format.
 - **AI-Powered Data Extraction**: Utilizes Google's Gemini 2.5 Flash model to read and understand complex legal documents, extracting key financial covenants, limits, and other metadata.
 - **Interactive Risk Dashboard**: Visualizes the health of each financial covenant with status indicators (Healthy, Warning, Breach), trend charts, and current values.
